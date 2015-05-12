@@ -75,8 +75,8 @@ public class OrientDbNativeLoaderImpl implements GraphLoaderService {
 			lastToNodeKey = toNodeKey;
 		}
 
-		fromNode.setProperty("title", fromNodeKey);
-		toNode.setProperty("title", toNodeKey);
+		fromNode.setProperty("title", fromNodeKey.replace('_', ' '));
+		toNode.setProperty("title", toNodeKey.replace('_', ' '));
 		// Create the edge
 		graph.addEdge(null, fromNode, toNode, "contains");
 		graph.commit();

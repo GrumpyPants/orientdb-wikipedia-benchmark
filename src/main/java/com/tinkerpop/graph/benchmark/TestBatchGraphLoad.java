@@ -30,7 +30,7 @@ public class TestBatchGraphLoad {
 	int batchReportTime = 100000;
 	//The name of a file which if found will stop the ingest at the next batch progress report time
 	String stopFileName = "stop.txt";
-	int numRecordsToLoad = 1000000; //set to a value >0 to limit the scope of the test
+	int numRecordsToLoad = 2147483647; //set to a value >0 to limit the scope of the test
 
 	GraphLoaderService graphLoaderService;
 
@@ -135,7 +135,7 @@ public class TestBatchGraphLoad {
 		boolean isArticle = true;
 		List<String> titlePrefixOmissionList = Arrays.asList("Image:", "Wikt", "S:A", "Help:", "Project:", "S:",
 														"Portal:", "Commons:", "Special:", "Talk:", "Wikispecies:",
-														"Wikisource:", "Template:", "BibleWiki:", "List of", "Http:");
+														"Wikisource:", "Template:", "BibleWiki:", "List_of", "Http:", "CAT:");
 
 		for (String titlePrefix : titlePrefixOmissionList) {
 			if(from.startsWith(titlePrefix) || to.startsWith(titlePrefix))
