@@ -8,6 +8,9 @@ import java.io.*;
 import java.net.URL;
 import java.nio.channels.Channels;
 import java.nio.channels.ReadableByteChannel;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -97,7 +100,7 @@ public class TestBatchGraphLoad {
 				}
 				String from = m.group(1);
 				String to = m.group(2);
-				if (!from.equals(to)) {
+				if (!from.equals(to) && isArticle(from, to)) {
 					graphLoaderService.addLink(from, to);
 				}
 				if (numRecordsProcessed % batchReportTime == 0) {
@@ -125,6 +128,29 @@ public class TestBatchGraphLoad {
 
 		benchmarkResultsLog.close();
 		fis.close();
+	}
+
+	private boolean isArticle(String from, String to) {
+
+		boolean isArticle = true;
+		List<String> titlePrefixOmissionList = Arrays.asList("Image:", "Wikt", "S:A", "Help:", "Project:", "S:",
+														"Portal:", "Commons:", "Special:", "Talk:", "Wikispecies:",
+														"Wikisource:", "Template:", "BibleWiki:", "List of", "Http:");
+
+		for (String titlePrefix : titlePrefixOmissionList) {
+			if(from.startsWith(titlePrefix) || to.startsWith(titlePrefix))
+			{
+				isArticle = false;
+			}
+		}
+
+
+		if (from.contains("Category:") || to.contains("Category:")) {
+			isArticle = false;
+		}
+
+
+		return isArticle;
 	}
 
 	public String getBenchmarkResultsFilename() {

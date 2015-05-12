@@ -28,9 +28,6 @@ public class OrientDbNativeLoaderImpl implements GraphLoaderService {
 	}
 
 	public void init() {
-		OGlobalConfiguration.CACHE_LEVEL2_ENABLED.setValue(false);
-		OGlobalConfiguration.CACHE_LEVEL2_SIZE.setValue(0);
-
 		File dir = new File(getOrientDbDirName());
 		deleteDirectory(dir);
 		dir.mkdirs();
@@ -77,6 +74,9 @@ public class OrientDbNativeLoaderImpl implements GraphLoaderService {
 			lastToNode = toNode;
 			lastToNodeKey = toNodeKey;
 		}
+
+		fromNode.setProperty("title", fromNodeKey);
+		toNode.setProperty("title", toNodeKey);
 		// Create the edge
 		graph.addEdge(null, fromNode, toNode, "contains");
 		graph.commit();
