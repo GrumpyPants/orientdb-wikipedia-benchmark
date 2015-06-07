@@ -25,7 +25,5 @@
 
     <bean id="orientLoader" class="com.tinkerpop.graph.benchmark.orientdb.OrientDbNativeLoaderImpl" lazy-init="true"
           init-method="init">
-        <property name="orientDbDirName" value="indexes/wikipediaOrientDb"/>
-        <property name="orientDbName" value="wikipediaOrientDb"/>
     </bean>
 </beans>
